@@ -1,8 +1,7 @@
-require(["jquery", "util", "room"], function($, Util, Room) {
+require(["jquery", "util", "room", "inventory"], function($, Util, Room, Inventory) {
 
   $(document).ready(function() {
     var roomID;
-    var inventory = [];
     var actions = ["Look", "Take", "Use", "Talk", "Attack"];
     var itemStatuses = [];
     var counters = [];
@@ -106,7 +105,7 @@ require(["jquery", "util", "room"], function($, Util, Room) {
 
 
                                        if(verb === "Take") {
-                                                inventory.push(item);
+                                                Inventory.add(item);
                                                 $(document).trigger("updateStatus", "You take the " + item + ".");
                                                 $("#action-use ul").append("<li><a href='#' class='item'>" + item        + " <small>(held)</small></a></li>");
                                                 $("#action-look ul li a:contains(" + item + ")").append(" <small>(held)</small>");
@@ -196,64 +195,64 @@ require(["jquery", "util", "room"], function($, Util, Room) {
 
 
     $("#footer ul li a").click(function() {                                                  // bunch of UI dom manipulation stuff, should probably break this out into its own file for now
-    $(".ui-overlay").fadeIn("fast");
-    $(".ui-action").fadeOut("fast");
-    $(".active").removeClass("active");
-    $("#footer, #footer").addClass("active");
-    $(this).parent().addClass("active");
+      $(".ui-overlay").fadeIn("fast");
+      $(".ui-action").fadeOut("fast");
+      $(".active").removeClass("active");
+      $("#footer, #footer").addClass("active");
+      $(this).parent().addClass("active");
     })
 
     $("#footer-look a").click(function() {                                                   // this is mad f*** redundant, refactor this you cad
-    $("#action-look").fadeIn("fast");
-    return false;
+      $("#action-look").fadeIn("fast");
+      return false;
     });
 
     $("#footer-take a").click(function() {
-    $("#action-take").fadeIn("fast");
-    return false;
+      $("#action-take").fadeIn("fast");
+      return false;
     });
 
     $("#footer-use a").click(function() {
-    $("#action-use").fadeIn("fast");
-    return false;
+      $("#action-use").fadeIn("fast");
+      return false;
     });
 
     $("#footer-talk a").click(function() {
-    $("#action-talk").fadeIn("fast");
-    return false;
+      $("#action-talk").fadeIn("fast");
+      return false;
     });
 
     $("#footer-attack a").click(function() {
-    $("#action-attack").fadeIn("fast");
-    return false;
+      $("#action-attack").fadeIn("fast");
+      return false;
     });
 
     $(".ui-overlay, .ui-action-sheet-back").click(function() {
-    $(".active").removeClass("active");
-    $(this).fadeOut("fast");
-    $(".ui-action, .ui-overlay, #move").fadeOut("fast");
+      $(".active").removeClass("active");
+      $(this).fadeOut("fast");
+      $(".ui-action, .ui-overlay, #move").fadeOut("fast");
     })
 
 
     $("#header-move, #move").click(function() {
-    $("#move").fadeToggle("fast");
-    $(".ui-overlay").fadeToggle("fast");
-    return false;
+      $("#move").fadeToggle("fast");
+      $(".ui-overlay").fadeToggle("fast");
+      return false;
     });
 
 
     $("#move-compass li").mouseover(function() {
-    if(!$(this).hasClass("disabled")) {
-    var preview = $(this).children("a").attr("href");
-    $("#move-preview .ui-modal-inner").html(preview);
-    $("#move-preview").fadeIn("fast");
-    }
-    return false;
+      if(!$(this).hasClass("disabled")) {
+        var preview = $(this).children("a").attr("href");
+        $("#move-preview .ui-modal-inner").html(preview);
+        $("#move-preview").fadeIn("fast");
+      }
+      return false;
     });
 
     $("#move-compass li:not(.disabled) a").mouseout(function() {
-    $("#move-preview").fadeOut("fast");
-    return false;
+      $("#move-preview").fadeOut("fast");
+      return false;
     });
   });
 });

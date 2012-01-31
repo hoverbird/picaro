@@ -1,9 +1,9 @@
-define(['jquery', 'Inventory'], function($, Inventory) {
+define(['jquery', 'inventory'], function($, Inventory) {
   var Room = {};
 
   Room.get = function(room, roomNum) {                                                     // begin room-switching/initializing function
     $("ul").not("#footer ul").not("#move-compass ul").each(function() {                  // reload all the room-specific lists
-        $(this).empty();
+      $(this).empty();
     });
 
     var roomID = roomNum;
@@ -38,8 +38,8 @@ define(['jquery', 'Inventory'], function($, Inventory) {
     });
 
 
-    for (var i in Inventory) {                                                           //re-populate item lists
-         $("#action-use ul, #action-look ul").append("<li><a href='#' class='item'>" + Inventory[i] + " <small>(held)</small></a></li>"); //append if it's in the Inventory
+    for (var i in Inventory.list()) {                                                           //re-populate item lists
+         $("#action-use ul, #action-look ul").append("<li><a href='#' class='item'>" + Inventory.list()[i] + " <small>(held)</small></a></li>"); //append if it's in the Inventory
     }
 
     $.each(room.items, function() {
@@ -49,14 +49,14 @@ define(['jquery', 'Inventory'], function($, Inventory) {
          }
 
          if(this.Look){
-                  var inInventory = jQuery.inArray(this.Name, Inventory);                 // don't append it if it's in the Inventory
+                  var inInventory = jQuery.inArray(this.Name, Inventory.list());                 // don't append it if it's in the Inventory
                   if(inInventory === -1) {
                   $("#action-look ul").append("<li><a href='#' class='item'>" + this.Name + "</a></li>");
                   }
          }
 
          if(this.Take) {
-                  var inInventory = jQuery.inArray(this.Name, Inventory);
+                  var inInventory = jQuery.inArray(this.Name, Inventory.list());
                   if(inInventory === -1) {
                   $("#action-take ul").append("<li><a href='#' class='item'>" + this.Name + "</a></li>");
                   }
