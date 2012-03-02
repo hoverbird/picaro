@@ -56,5 +56,6 @@ $(function() {
       return resetGameData(jsGameObject);
     }
   });
-  return resetGameData(jsyaml.load($('#code').html()));
+  resetGameData(jsyaml.load($('#code').html()));
+  return window.initBox();
 });

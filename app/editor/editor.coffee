@@ -15,7 +15,6 @@ drawRoom = (room) ->
         console.log room.name, 'border-#{border}', '6px solid cyan'
         roomDiv.css("border-#{border}", '6px solid cyan') 
     
-
 resetGameData = (game) ->
   gameObject = game
   console.log game
@@ -33,5 +32,7 @@ $ ->
       resetGameData(jsGameObject)
       #if gameObject.rooms.length isnt jsGameObject.rooms.length
   )
-  # on first load, reset the gameworld representation
   resetGameData jsyaml.load($('#code').html())
+  window.initBox()
+
+
