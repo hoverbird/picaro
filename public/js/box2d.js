@@ -1,20 +1,32 @@
-var initBox, update, world;
+var b2Body, b2BodyDef, b2CircleShape, b2DebugDraw, b2DistanceJointDef, b2Fixture, b2FixtureDef, b2MassData, b2PolygonShape, b2Vec2, b2World, initBox, update, world;
 
 world = void 0;
 
-initBox = function() {
-  var b2Body, b2BodyDef, b2CircleShape, b2DebugDraw, b2Fixture, b2FixtureDef, b2MassData, b2PolygonShape, b2Vec2, b2World, bodyDef, debugDraw, fixDef, i;
-  b2Vec2 = Box2D.Common.Math.b2Vec2;
-  b2BodyDef = Box2D.Dynamics.b2BodyDef;
-  b2Body = Box2D.Dynamics.b2Body;
-  b2FixtureDef = Box2D.Dynamics.b2FixtureDef;
-  b2Fixture = Box2D.Dynamics.b2Fixture;
-  b2World = Box2D.Dynamics.b2World;
-  b2MassData = Box2D.Collision.Shapes.b2MassData;
-  b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
-  b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
-  b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
-  world = new b2World(new b2Vec2(0, 10), true);
+b2Vec2 = Box2D.Common.Math.b2Vec2;
+
+b2BodyDef = Box2D.Dynamics.b2BodyDef;
+
+b2Body = Box2D.Dynamics.b2Body;
+
+b2FixtureDef = Box2D.Dynamics.b2FixtureDef;
+
+b2Fixture = Box2D.Dynamics.b2Fixture;
+
+b2DistanceJointDef = Box2D.Dynamics.Joints.b2DistanceJointDef;
+
+b2World = Box2D.Dynamics.b2World;
+
+b2MassData = Box2D.Collision.Shapes.b2MassData;
+
+b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
+
+b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
+
+b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
+
+initBox = function(gameObject) {
+  var bodyDef, debugDraw, fixDef, room, _i, _len, _ref;
+  world = new b2World(new b2Vec2(0, 0), true);
   fixDef = new b2FixtureDef;
   fixDef.density = 1.0;
   fixDef.friction = 0.5;
@@ -27,8 +39,9 @@ initBox = function() {
   fixDef.shape.SetAsBox(10, 0.5);
   world.CreateBody(bodyDef).CreateFixture(fixDef);
   bodyDef.type = b2Body.b2_dynamicBody;
-  i = 0;
-  while (i < 10) {
+  _ref = gameObject.rooms;
+  for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+    room = _ref[_i];
     if (Math.random() > 0.5) {
       fixDef.shape = new b2PolygonShape;
       fixDef.shape.SetAsBox(Math.random() + 0.1, Math.random() + 0.1);
@@ -38,7 +51,6 @@ initBox = function() {
     bodyDef.position.x = Math.random() * 10;
     bodyDef.position.y = Math.random() * 10;
     world.CreateBody(bodyDef).CreateFixture(fixDef);
-    ++i;
   }
   debugDraw = new b2DebugDraw();
   debugDraw.SetSprite(document.getElementById("canvas").getContext("2d"));

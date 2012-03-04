@@ -50,12 +50,12 @@ $(function() {
     mode: "yaml",
     theme: "monokai",
     onChange: function(mirror, changes) {
-      var jsGameObject;
       mirror.save();
-      jsGameObject = jsyaml.load(mirror.getTextArea().value);
-      return resetGameData(jsGameObject);
+      gameObject = jsyaml.load(mirror.getTextArea().value);
+      return resetGameData(gameObject);
     }
   });
-  resetGameData(jsyaml.load($('#code').html()));
-  return window.initBox();
+  gameObject = jsyaml.load($('#code').html());
+  resetGameData(gameObject);
+  return window.initBox(gameObject);
 });

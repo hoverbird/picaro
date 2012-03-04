@@ -28,11 +28,12 @@ $ ->
     theme: "monokai"
     onChange: (mirror, changes) ->
       mirror.save()
-      jsGameObject = jsyaml.load(mirror.getTextArea().value)
-      resetGameData(jsGameObject)
+      gameObject = jsyaml.load(mirror.getTextArea().value)
+      resetGameData(gameObject)
       #if gameObject.rooms.length isnt jsGameObject.rooms.length
   )
-  resetGameData jsyaml.load($('#code').html())
-  window.initBox()
+  gameObject = jsyaml.load $('#code').html()
+  resetGameData gameObject
+  window.initBox gameObject
 
 
