@@ -1,4 +1,4 @@
-source :gemcutter, :github
+source 'https://rubygems.org', :github
 gem "rake"
 gem "json"
 gem "rack", "~>1.3.6"
