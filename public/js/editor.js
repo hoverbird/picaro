@@ -86,9 +86,10 @@ define(["jquery", "room", "util", "vendor/underscore"], function($, Room, util) 
         _ref = game.rooms;
         for (id in _ref) {
           room = _ref[id];
-          Room.construct(id, room);
-          if(room.name.length > 20) {
-            Editor.yamlIsValid(false, "Room names must be 20 characters or less.")
+          if (room.name.length > 20) {
+            Editor.yamlIsValid(false, "Room names must be 20 characters or less.");
+          } else {
+            Room.construct(id, room);
           }
         }
         $('.game-name').html(game.gameName);
